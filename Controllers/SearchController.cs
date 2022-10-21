@@ -11,8 +11,8 @@ public class SearchController : Controller {
 	private readonly ElasticsearchClient _client;
 
 	public SearchController() {
-        var credentials = new ApiKey("dUNlLTBJSUIxcHFwQTgwclB5ckM6MHl2TUswT0FSNENFNTdtRW1HSFB6dw=="); 
-        var pool = new CloudNodePool("KavaaElasticSearch:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDg3ZWE3NzI4MDVlYTRjY2I5NWQ1NzVhOTM3YzA1N2QxJDY0ZjAyZWRjMjYzYjQ4YWM5YmZlNjQ5OWFhYWRhMDdl", credentials);
+        var credentials = new ApiKey("OXZCX19JTUJOUTBsSVZHM0hBTE86Y1FVNEZ3cjRTYVNHOXBrUi1RNjY0UQ=="); 
+        var pool = new CloudNodePool("KavaaElasticSearch:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDRkMTc5YTFkODJiNjRmMGY5NmUyNGI4OWJjYTQ1ZTU2JGRhODVlZTdhNjY1MDQ1MGNhM2UwYTg0NmQ3ZDAyM2U0", credentials);
         var settings = new ElasticsearchClientSettings(pool)
             .DefaultMappingFor<Student>(i => i
             .IndexName("students_idx")
