@@ -8,14 +8,14 @@ namespace KavaaElasticSearch.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class SearchController : Controller {
-	private readonly ElasticsearchClient client;
+	private readonly ElasticsearchClient _client;
 
 	public SearchController() {
         var credentials = new ApiKey("dUNlLTBJSUIxcHFwQTgwclB5ckM6MHl2TUswT0FSNENFNTdtRW1HSFB6dw=="); 
         var pool = new CloudNodePool("KavaaElasticSearch:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDg3ZWE3NzI4MDVlYTRjY2I5NWQ1NzVhOTM3YzA1N2QxJDY0ZjAyZWRjMjYzYjQ4YWM5YmZlNjQ5OWFhYWRhMDdl", credentials);
         var settings = new ElasticsearchClientSettings(pool)
             .DefaultMappingFor<Student>(i => i
-            .IndexName("studies_idx")
+            .IndexName("students_idx")
             .IdProperty(s => s.sid)
         ).DefaultMappingFor<Teacher>(i => i
             .IndexName("teachers_idx")
@@ -24,12 +24,12 @@ public class SearchController : Controller {
         .EnableDebugMode()
         .PrettyJson()
         .RequestTimeout(TimeSpan.FromMinutes(2));
-        this.client = new ElasticsearchClient(settings);
+        _client = new ElasticsearchClient(settings);
     }
 
 	[HttpGet]
 	public JsonResult Search(string query) {
-        var studentsResponse = this.client.Search<Student>(s => s
+        var studentsResponse = _client.Search<Student>(s => s
             .Query(q => q
                 .Match(m => m
                     .Field(f => f.name)
@@ -37,7 +37,7 @@ public class SearchController : Controller {
                 )
             )
         );  
-        var teachersResponse = this.client.Search<Teacher>(s => s
+        var teachersResponse = _client.Search<Teacher>(s => s
             .Query(q => q
                 .Match(m => m
                     .Field(f => f.name)
