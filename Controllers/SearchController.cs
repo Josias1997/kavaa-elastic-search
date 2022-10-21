@@ -31,17 +31,25 @@ public class SearchController : Controller {
 	public JsonResult Search(string query) {
         var studentsResponse = _client.Search<Student>(s => s
             .Query(q => q
-                .Match(m => m
-                    .Field(f => f.name)
-                    .Query(query)                    
+                .Bool(b => b
+                    .Should(m => m
+                        .Wildcard(w => w
+                            .Field(f => f.name)
+                            .Value("*" + query.ToLower() + "*")
+                        )
+                    )
                 )
             )
         );  
         var teachersResponse = _client.Search<Teacher>(s => s
             .Query(q => q
-                .Match(m => m
-                    .Field(f => f.name)
-                    .Query(query)                    
+                .Bool(b => b
+                    .Should(m => m
+                        .Wildcard(w => w
+                            .Field(f => f.name)
+                            .Value("*" + query.ToLower() + "*")
+                        )
+                    )
                 )
             )
         ); 

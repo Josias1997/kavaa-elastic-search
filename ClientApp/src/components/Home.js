@@ -31,6 +31,10 @@ export class Home extends Component {
           } catch (error) {
             console.log(error);
           }
+        } else {
+          this.setState({
+            results: []
+          })
         }
       }
     );
